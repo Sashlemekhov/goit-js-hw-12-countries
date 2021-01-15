@@ -1,20 +1,236 @@
-html {
-  box-sizing: border-box;
-}
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 *,
-*::before,
-*::after {
-  box-sizing: inherit;
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
 }
 
+html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  height: 100%;
+}
+body {
+  background-color: hsla(230, 40%, 50%, 1);
+  text-align: center;
+}
 
-  /*
-   * CSS image reference example.
-   */
-  background-image: url('./images/bg-pattern.png');
+h1 {
+  margin-top: 60px;
+
+  display: inline-block;
+  color: white;
+  font-family: 'Righteous', serif;
+  font-size: 4.5em;
+  text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
+}
+h1:after {
+  content: attr(data-shadow);
+  position: absolute;
+  top: 0.06em;
+  left: 0.06em;
+  z-index: -1;
+  text-shadow: none;
+  background-image: linear-gradient(
+    45deg,
+    transparent 45%,
+    hsla(48, 20%, 90%, 1) 45%,
+    hsla(48, 20%, 90%, 1) 55%,
+    transparent 0
+  );
+  background-size: 0.05em 0.05em;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shad-anim 150s linear infinite;
+}
+
+@keyframes shad-anim {
+  0% {
+    background-position: 0 0;
+  }
+  0% {
+    background-position: 100% -100%;
+  }
+}
+
+.form__group {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 80px;
+  width: 800px;
+}
+
+.form__field {
+  font-family: 'Roboto', serif;
+  font-weight: 400;
+  width: 100%;
+  border: 0;
+  border-bottom: 5px solid #ffffff8c;
+  outline: 0;
+  font-size: 32px;
+  color: rgb(255, 255, 255);
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  text-transform: capitalize;
+}
+.form__field::placeholder {
+  color: transparent;
+}
+.form__field:placeholder-shown ~ .form__label {
+  cursor: text;
+  top: 20px;
+}
+
+.form__label {
+  font-family: 'Roboto', serif;
+  font-weight: 400;
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+.form__field:focus {
+  font-family: 'Roboto', serif;
+  font-size: 32px;
+  font-weight: 400;
+  padding-bottom: 7px;
+  border-width: 5px;
+  border-image: linear-gradient(to right, #00ffff, #02fd0f);
+  border-image-slice: 1;
+}
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #ffffff8c;
+  font-weight: 400;
+}
+
+.form__field:valid {
+  font-family: 'Roboto', serif;
+  font-size: 32px;
+  font-weight: 400;
+  padding-bottom: 7px;
+  border-width: 5px;
+  border-image: linear-gradient(to right, #00ffff, #02fd0f);
+  border-image-slice: 1;
+}
+
+.form__field:valid + .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  font-size: 1rem;
+  color: #ffffff8c;
+  font-weight: 400;
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+.heading {
+  color: #02fd0f;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  font-family: 'Righteous', serif;
+  font-size: 80px;
+  font-weight: 200;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.country-container {
+  display: flex;
+  justify-content: center;
+}
+
+.info-container {
+  display: block;
+  width: 800px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  text-align: left;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.info-list {
+  color: hsla(230, 40%, 50%, 1);
+  font-family: 'Roboto', serif;
+  font-size: 36px;
+  font-weight: 400;
+  list-style: none;
+}
+
+.info-list li {
+  margin-left: 50px;
+}
+
+.info-list span {
+  font-weight: 500;
+}
+
+.flag-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  margin-left: 100px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.flag-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.countries-list-container {
+  display: block;
+  width: 1000px;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  text-align: left;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notify-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', serif;
+  font-size: 26px;
+  font-weight: 400;
+  width: 400px;
+  min-height: 120px;
+  background-image: linear-gradient(to right, #00ffff, #02fd0f);
+  box-shadow: 8px 9px 8px -1px rgba(202, 202, 202, 0.29);
+  border-radius: 30px;
 }
