@@ -1,7 +1,7 @@
 import listCountryTpl from '../templates/list-of-countries.hbs';
 import oneCountryTpl from '../templates/country-info.hbs';
 import { notice, Stack } from '@pnotify/core';
-const _ = require('lodash');
+import debounce from 'lodash.debounce';
 
 const myStack = new Stack({
   dir1: "down", 
@@ -15,11 +15,13 @@ const myStack = new Stack({
 const inputRef = document.querySelector('.js-search');
 const searchContentRef = document.querySelector('.js-search-content');
 
-inputRef.value = '';
+searchContentRef.innerHTML = localStorage.getItem('markup') || '';
 
-const searchHandler = function() {
+const searchHandler = function () {
+  searchContentRef.innerHTML = '';
+  
+
   if (inputRef.value === '') {
-    searchContentRef.innerHTML = '';
     return;
   };
 
@@ -28,16 +30,17 @@ const searchHandler = function() {
   fetch(url)
     .then(response => response.json())
     .then((data) => {
-      searchContentRef.innerHTML = '';
 
       if (data.length === 1) {
         const markupOneCountry = oneCountryTpl(data[0]);
         searchContentRef.insertAdjacentHTML('beforeend', markupOneCountry);
+        localStorage.setItem('markup', searchContentRef.innerHTML);
       };
       
       if (data.length >= 2 & data.length <= 10) {
         const markup = listCountryTpl(data);
         searchContentRef.insertAdjacentHTML('beforeend', markup);
+        localStorage.setItem('markup', searchContentRef.innerHTML);
       };
 
       if (data.length > 10) {
@@ -73,11 +76,10 @@ const searchHandler = function() {
           mouseReset: true,
           stack: myStack,
       });
-
-      console.log('введите нормальные данные')
     })
 };
 
-inputRef.addEventListener('input', _.debounce(searchHandler, 500));
+inputRef.addEventListener('input', debounce(searchHandler, 700));
+
 
 
